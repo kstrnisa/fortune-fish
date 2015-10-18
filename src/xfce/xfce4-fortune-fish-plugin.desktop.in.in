@@ -1,0 +1,9 @@
+[Xfce Panel]
+Type=X-XFCE-PanelPlugin
+_Name=Fortune Fish Plugin
+_Comment=Gives Answers To The Question
+Icon=fortune-fish
+X-XFCE-Module=xfce4fortunefish
+X-XFCE-Unique=TRUE
+X-XFCE-Internal=false
+X-XFCE-API=2.0
