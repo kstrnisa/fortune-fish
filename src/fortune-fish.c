@@ -105,7 +105,7 @@ int fortune_fish_window_show(fortune_fish *fish) {
     g_return_val_if_fail(fish != NULL, FALSE);
 
     /* The fortune window is destroyed when closed. */
-    if (!GTK_IS_WIDGET(fish->fortune_window)) {
+    if (!fish->fortune_window) {
         fish->fortune_window = fortune_fish_window_new(fish);
     }
 
@@ -128,6 +128,8 @@ GtkWidget *fortune_fish_window_new(fortune_fish *fish) {
     gtk_window_set_default_size(GTK_WINDOW(window),
             FISH_WINDOW_WIDTH, FISH_WINDOW_HEIGHT);
     gtk_window_set_icon_name(GTK_WINDOW(window), "fortune-fish");
+    g_signal_connect(window, "destroy",
+            G_CALLBACK(gtk_widget_destroyed), &fish->fortune_window);
 
     text = g_strdup_printf("%s the Fish", fish->name);
     gtk_window_set_title(GTK_WINDOW(window), text);
