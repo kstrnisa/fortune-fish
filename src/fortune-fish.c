@@ -128,6 +128,9 @@ GtkWidget *fortune_fish_window_new(fortune_fish *fish) {
     gtk_window_set_default_size(GTK_WINDOW(window),
             FISH_WINDOW_WIDTH, FISH_WINDOW_HEIGHT);
     gtk_window_set_icon_name(GTK_WINDOW(window), "fortune-fish");
+
+    /* Mark window as destroyed (NULL-ing the pointer to it) to avoid
+     * false positives when checking whether the window exists. */
     g_signal_connect(window, "destroy",
             G_CALLBACK(gtk_widget_destroyed), &fish->fortune_window);
 
@@ -311,7 +314,7 @@ void fortune_fish_destroy(fortune_fish *fish) {
 
     g_return_if_fail(fish != NULL);
 
-    if (GTK_IS_WIDGET(fish->fortune_window)) {
+    if (fish->fortune_window) {
         gtk_widget_destroy(fish->fortune_window);
     }
 
